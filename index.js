@@ -33,7 +33,6 @@ function addTask() {
   });
 
   if(check.checked == true){
-    console.log("ola")
   }
 
 }
