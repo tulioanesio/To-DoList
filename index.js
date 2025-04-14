@@ -29,7 +29,7 @@ window.onload = function () {
     savedTasks.forEach((tasks) => {
       pMsgTask.innerHTML += `<input type="checkbox" class=check> ${tasks}<br>`;
     });
-    pMsgPending.textContent = `Pendentes(${savedTasks.length})`;
+    pMsgAccordion.textContent = `Tasks(${savedTasks.length})`;
   } else {
   }
 };
@@ -54,11 +54,8 @@ function addTask() {
     pMsgTask.innerHTML += `<input type="checkbox" class=check> ${task}<br>`;
   });
 
-  pMsgPending.textContent = `Pendentes(${tasks.length})`;
+  pMsgAccordion.textContent = `Tasks(${tasks.length})`;
 
-  if (check.checked == true) {
-    pDoneTask.innerHTML += `<input type="checkbox" class=check> ${task}<br>`;
-  }
 }
 
 var acc = document.getElementsByClassName("accordion");

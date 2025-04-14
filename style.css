@@ -53,12 +53,7 @@ p {
   color: white;
 }
 
-input:checked {
-  border-radius: 100%;
-  border: none;
-}
-
-#btn-Add {
+#btn-Add{
   width: 150px;
   height: 50px;
   border: 1px solid #605e5c;
@@ -73,11 +68,11 @@ input:checked {
   left: 1625px;
 }
 
-#btn-Add:hover {
+#btn-Add:hover{
   background-color: rgb(41, 40, 39);
 }
 
-.accordion {
+.accordion{
   background-color: #201f1e;
   color: white;
   font-weight: bold;
