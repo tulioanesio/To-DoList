@@ -20,38 +20,43 @@ document
   });
 
 window.onload = function () {
-  let savedTasks = localStorage.getItem("savedTasks");
-  savedTasks = JSON.parse(savedTasks);
+  let pendingTasks = localStorage.getItem("pendingTasks");
+  pendingTasks = JSON.parse(pendingTasks);
   let pMsgTask = document.getElementById("pMsgTask");
-  if (savedTasks) {
+  if (pendingTasks) {
     pMsgTask.innerHTML = "";
-
-    savedTasks.forEach((tasks) => {
-      pMsgTask.innerHTML += `<input type="checkbox" class=check> ${tasks}<br>`;
+    pendingTasks.forEach((task) => {
+      pMsgTask.innerHTML += `<input type="checkbox" class=check> ${task.task}<br>`;
     });
-    pMsgAccordion.textContent = `Tasks(${savedTasks.length})`;
+    pMsgAccordion.textContent = `Tasks(${pendingTasks.length})`;
   } else {
   }
 };
 
 function addTask() {
-  if (localStorage.savedTasks) {
-    tasks = JSON.parse(localStorage.getItem("savedTasks"));
+  if (localStorage.pendingTasks) {
+    tasks = JSON.parse(localStorage.getItem("pendingTasks"));
   }
 
   let taskInput = document.getElementById("taskInput").value;
   let pMsgTask = document.getElementById("pMsgTask");
 
-  tasks.push(taskInput);
-  console.log(tasks);
-  localStorage.savedTasks = JSON.stringify(tasks);
+  const newTask = {
+    id: Date.now(),
+    task: taskInput,
+    completed: false
+  }
+
+  tasks.push(newTask);
+
+  localStorage.setItem("pendingTasks", JSON.stringify(tasks));
 
   pMsgTask.innerHTML = "";
 
   document.getElementById("btn-Add").disabled = false;
   document.getElementById("btn-Add").style.cursor = "pointer";
   tasks.forEach((task) => {
-    pMsgTask.innerHTML += `<input type="checkbox" class=check> ${task}<br>`;
+    pMsgTask.innerHTML += `<input type="checkbox" class=check> ${task.task}<br>`;
   });
 
   pMsgAccordion.textContent = `Tasks(${tasks.length})`;
