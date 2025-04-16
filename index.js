@@ -1,4 +1,5 @@
 let tasks = [];
+let completedtasks = [];
 
 document.getElementById("btn-Add").disabled = true;
 document.getElementById("btn-Add").style.cursor = "not-allowed";
@@ -22,11 +23,24 @@ document
 window.onload = function () {
   let pendingTasks = localStorage.getItem("pendingTasks");
   pendingTasks = JSON.parse(pendingTasks);
+  let completedTasks = localStorage.getItem("completedTasks");
+  completedTasks = JSON.parse(completedTasks);
+
+  const completedTask = {
+    id: Date.now(),
+    task: "Test",
+    completed: true,
+  };
+
+  completedtasks.push(completedTask);
+
+  localStorage.setItem("completedTasks", JSON.stringify(completedtasks));
+
   let pMsgTask = document.getElementById("pMsgTask");
   if (pendingTasks) {
     pMsgTask.innerHTML = "";
     pendingTasks.forEach((task) => {
-      pMsgTask.innerHTML += `<input type="checkbox" class=check> ${task.task}<br>`;
+      pMsgTask.innerHTML += `<input type="checkbox" id=taskItem${task.id}> ${task.task}<br>`;
     });
     pMsgAccordion.textContent = `Tasks(${pendingTasks.length})`;
   } else {
@@ -44,8 +58,8 @@ function addTask() {
   const newTask = {
     id: Date.now(),
     task: taskInput,
-    completed: false
-  }
+    completed: false,
+  };
 
   tasks.push(newTask);
 
@@ -56,11 +70,10 @@ function addTask() {
   document.getElementById("btn-Add").disabled = false;
   document.getElementById("btn-Add").style.cursor = "pointer";
   tasks.forEach((task) => {
-    pMsgTask.innerHTML += `<input type="checkbox" class=check> ${task.task}<br>`;
+    pMsgTask.innerHTML += `<input type="checkbox" id=taskItem${task.id}> ${task.task}<br>`;
   });
 
   pMsgAccordion.textContent = `Tasks(${tasks.length})`;
-
 }
 
 var acc = document.getElementsByClassName("accordion");
