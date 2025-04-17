@@ -11,9 +11,13 @@
     <div class="container">
       <input type="text" id="taskInput" placeholder="Add a task" />
       <button id="btn-Add" onclick="addTask()">Add</button>
-      <button class="accordion" id="pMsgAccordion">Tasks</button>
+      <button class="accordion" id="PendingAccordion">Pending(0)</button>
       <div class="panel">
-        <p id="pMsgTask"></p>
+        <p id="pMsgPendingTask"></p>
+      </div>
+      <button class="accordion" id="CompletedAccordion">Completed(0)</button>
+      <div class="panel">
+        <p id="pMsgCompletedTask"></p>
       </div>
     <script src="index.js"></script>
   </body>

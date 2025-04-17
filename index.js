@@ -26,6 +26,15 @@ window.onload = function () {
   let completedTasks = localStorage.getItem("completedTasks");
   completedTasks = JSON.parse(completedTasks);
 
+  let pMsgPendingTask = document.getElementById("pMsgPendingTask");
+  if (pendingTasks) {
+    pMsgPendingTask.innerHTML = "";
+    pendingTasks.forEach((task) => {
+      pMsgPendingTask.innerHTML += `<input type="checkbox" id=taskItem${task.id}> ${task.task}<br>`;
+    });
+    PendingAccordion.textContent = `Pending(${pendingTasks.length})`;
+  }
+
   const completedTask = {
     id: Date.now(),
     task: "Test",
@@ -36,14 +45,13 @@ window.onload = function () {
 
   localStorage.setItem("completedTasks", JSON.stringify(completedtasks));
 
-  let pMsgTask = document.getElementById("pMsgTask");
-  if (pendingTasks) {
-    pMsgTask.innerHTML = "";
-    pendingTasks.forEach((task) => {
-      pMsgTask.innerHTML += `<input type="checkbox" id=taskItem${task.id}> ${task.task}<br>`;
+  let pMsgCompletedTask = document.getElementById("pMsgCompletedTask");
+  if (completedTasks) {
+    pMsgCompletedTask.innerHTML = "";
+    completedTasks.forEach((task) => {
+      pMsgCompletedTask.innerHTML += `<input type="checkbox" id=taskItem${task.id}> ${task.task}<br>`;
     });
-    pMsgAccordion.textContent = `Tasks(${pendingTasks.length})`;
-  } else {
+    CompletedAccordion.textContent = `Completed(${completedTasks.length})`;
   }
 };
 
@@ -53,7 +61,7 @@ function addTask() {
   }
 
   let taskInput = document.getElementById("taskInput").value;
-  let pMsgTask = document.getElementById("pMsgTask");
+  let pMsgPendingTask = document.getElementById("pMsgPendingTask");
 
   const newTask = {
     id: Date.now(),
@@ -65,15 +73,15 @@ function addTask() {
 
   localStorage.setItem("pendingTasks", JSON.stringify(tasks));
 
-  pMsgTask.innerHTML = "";
+  pMsgPendingTask.innerHTML = "";
 
   document.getElementById("btn-Add").disabled = false;
   document.getElementById("btn-Add").style.cursor = "pointer";
   tasks.forEach((task) => {
-    pMsgTask.innerHTML += `<input type="checkbox" id=taskItem${task.id}> ${task.task}<br>`;
+    pMsgPendingTask.innerHTML += `<input type="checkbox" onclick="selectCheckBox()" id=taskItem${task.id}> ${task.task}<br>`;
   });
 
-  pMsgAccordion.textContent = `Tasks(${tasks.length})`;
+  PendingAccordion.textContent = `Pending(${tasks.length})`;
 }
 
 var acc = document.getElementsByClassName("accordion");
@@ -91,3 +99,35 @@ for (i = 0; i < acc.length; i++) {
     }
   });
 }
+
+// function selectCheckBox() {
+//   // Pega as tarefas pendentes do localStorage
+//   let pendingTasks = JSON.parse(localStorage.getItem("pendingTasks")) || [];
+//   let completedTasks = JSON.parse(localStorage.getItem("completedTasks")) || [];
+
+//   // Cria uma nova lista filtrando as que continuam pendentes
+//   const stillPending = [];
+
+//   pendingTasks.forEach((task) => {
+//     const checkbox = document.getElementById(`taskItem${task.id}`);
+
+//     if (checkbox && checkbox.checked) {
+//       // Se estiver marcada, adiciona em completedTasks
+//       task.completed = true;
+//       completedTasks.push(task);
+//       pMsgPendingTask.innerHTML += "";
+//     } else {
+//       // Se não, mantém na lista de pendentes
+//       stillPending.push(task);
+//     }
+//   });
+
+//   // Atualiza o localStorage
+//   localStorage.setItem("pendingTasks", JSON.stringify(stillPending));
+//   localStorage.setItem("completedTasks", JSON.stringify(completedTasks));
+
+//   // Atualiza a lista visível na tela (se quiser)
+//   renderTasks(); // <- essa função você precisaria ter pra re-renderizar as tarefas
+// }
+
+// window.onload()
